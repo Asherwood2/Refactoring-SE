@@ -1,4 +1,5 @@
 package edu.uca.registration.model;
+//test
 
 import java.util.ArrayList;
 import java.util.List;
