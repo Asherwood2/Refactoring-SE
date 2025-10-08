@@ -14,6 +14,11 @@ public class Student {
         this.name = name;
         this.email = email;
     }
+    
+    public String getId(){
+        return id;
+    }
+    
     @Override
     public String toString() {
         return id + " " + name + " <" + email + ">";
