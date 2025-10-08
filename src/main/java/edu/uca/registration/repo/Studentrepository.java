@@ -4,10 +4,14 @@
  */
 package edu.uca.registration.repo;
 
-/**
- *
- * @author Austin
- */
+import edu.uca.registration.model.Student;
+import java.util.*;
+
+
 public class Studentrepository {
+    private Map<String, Student> students = new LinkedHashMap<>();
     
+    public void add(Student s) {students.put(s.getID(), s);}
+    public Student get(String id) {return students.get(id);}
+    public Collection<Student> getAll() {return students.values();}
 }

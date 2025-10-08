@@ -248,6 +248,8 @@ public class Main {
     }
 
     // -------------------- Tiny domain types --------------------
+    //Moved to model package with files Student, and Course
+    /*
     static class Student {
         String id, name, email;
         Student(String id, String name, String email) { this.id=id; this.name=name; this.email=email; }
@@ -258,7 +260,7 @@ public class Main {
         List<String> roster = new ArrayList<>(), waitlist = new ArrayList<>();
         Course(String code, String title, int capacity) { this.code=code; this.title=title; this.capacity=capacity; }
     }
-
+    */
     // -------------------- Utils --------------------
     private static void print(String s){ System.out.print(s); }
     private static void println(String s){ System.out.println(s); }
