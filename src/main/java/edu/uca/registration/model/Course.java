@@ -1,28 +1,60 @@
 package edu.uca.registration.model;
-//test
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Course {
-    //course identifier
-    public String code;
-
-    //Title of course
-    public String title;
-
-    //max students in course
-    public int capacity;
-
-    //list of students ID in course
-    public List<String> roster = new ArrayList<>();
-
-    //list of student IDs on waitlist
-    public List<String> waitlist = new ArrayList<>();
+    private String code;
+    private String title;
+    private int capacity;
+    private List<String> roster = new ArrayList<>();
+    private List<String> waitlist = new ArrayList<>();
 
     public Course(String code, String title, int capacity) {
         this.code = code;
         this.title = title;
         this.capacity = capacity;
+    }
+
+    // Getters
+    public String getCode() {
+        return code;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public List<String> getRoster() {
+        return roster;
+    }
+
+    public List<String> getWaitlist() {
+        return waitlist;
+    }
+
+    // Setters
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
+    }
+
+    public void setRoster(List<String> roster) {
+        this.roster = roster;
+    }
+
+    public void setWaitlist(List<String> waitlist) {
+        this.waitlist = waitlist;
     }
 }
