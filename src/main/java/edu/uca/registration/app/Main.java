@@ -8,7 +8,7 @@ import edu.uca.registration.util.AppLogger;
 
 import java.util.*;
 
-// CLI application for course registration with file persistence
+
 public class Main {
     private static StudentRepository studentRepo;
     private static CourseRepository courseRepo;
@@ -28,11 +28,17 @@ public class Main {
         courseRepo = new CsvCourseRepository(coursesFile, logger);
         EnrollmentRepository enrollmentRepo = new CsvEnrollmentRepository(enrollmentsFile, logger);
 
-        // Load existing data
-        studentRepo.load();
-        courseRepo.load();
-        enrollmentRepo.load(courseRepo.getAll());
         registrationService = new RegistrationService(studentRepo, courseRepo);
+
+// Load data or demo
+        boolean demo = args.length > 0 && "--demo".equalsIgnoreCase(args[0]);
+        if (demo) {
+            seedDemo();
+        } else {
+            studentRepo.load();
+            courseRepo.load();
+            enrollmentRepo.load(courseRepo.getAll());
+        }
 
         System.out.println("=== UCA Course Registration ===\n");
         menuLoop();
@@ -204,4 +210,13 @@ public class Main {
                     " (capacity: " + c.getCapacity() + ")");
         }
     }
+    // Load demo data
+    private static void seedDemo() {
+        registrationService.addStudent("B001", "Alice", "alice@uca.edu");
+        registrationService.addStudent("B002", "Brian", "brian@uca.edu");
+        registrationService.addCourse("CSCI4490", "Software Engineering", 2);
+        registrationService.addCourse("MATH1496", "Calculus I", 50);
+        System.out.println("Demo data loaded!\n");
+    }
+
 }

@@ -1,1 +1,14 @@
-C:\Users\Austin\Documents\SoftwareEngineering\Refactoring assignment\uca-course-registration\src\main\java\edu\uca\registration\Main.java
+C:\Users\nickc\Documents\GitHub\Refactoring-SE\src\main\java\edu\uca\registration\exception\ValidationException.java
+C:\Users\nickc\Documents\GitHub\Refactoring-SE\src\main\java\edu\uca\registration\model\Course.java
+C:\Users\nickc\Documents\GitHub\Refactoring-SE\src\main\java\edu\uca\registration\exception\EnrollmentException.java
+C:\Users\nickc\Documents\GitHub\Refactoring-SE\src\main\java\edu\uca\registration\util\Validator.java
+C:\Users\nickc\Documents\GitHub\Refactoring-SE\src\main\java\edu\uca\registration\model\Student.java
+C:\Users\nickc\Documents\GitHub\Refactoring-SE\src\main\java\edu\uca\registration\repo\CsvCourseRepository.java
+C:\Users\nickc\Documents\GitHub\Refactoring-SE\src\main\java\edu\uca\registration\util\AppLogger.java
+C:\Users\nickc\Documents\GitHub\Refactoring-SE\src\main\java\edu\uca\registration\repo\StudentRepository.java
+C:\Users\nickc\Documents\GitHub\Refactoring-SE\src\main\java\edu\uca\registration\repo\CourseRepository.java
+C:\Users\nickc\Documents\GitHub\Refactoring-SE\src\main\java\edu\uca\registration\service\RegistrationService.java
+C:\Users\nickc\Documents\GitHub\Refactoring-SE\src\main\java\edu\uca\registration\repo\CsvEnrollmentRepository.java
+C:\Users\nickc\Documents\GitHub\Refactoring-SE\src\main\java\edu\uca\registration\app\Main.java
+C:\Users\nickc\Documents\GitHub\Refactoring-SE\src\main\java\edu\uca\registration\repo\CsvStudentRepository.java
+C:\Users\nickc\Documents\GitHub\Refactoring-SE\src\main\java\edu\uca\registration\repo\EnrollmentRepository.java
