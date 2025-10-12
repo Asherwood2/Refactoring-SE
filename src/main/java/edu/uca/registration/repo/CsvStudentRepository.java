@@ -50,9 +50,9 @@ public class CsvStudentRepository implements StudentRepository{
     public void saveAll(){
         try (PrintWriter pw = new PrintWriter(new FileWriter(filePath))){
             for (Student s : students.values()){
-                pw.println(s.getId() + "," + s.getName() + "," + s.getEmail());
-                logger.info("Saved " + students.size() + " students");
+                pw.println(s.getId() + "," + s.getName() + "," + s.getEmail());  
             }
+            logger.info("Saved " + students.size() + " students");
         } catch (IOException e){
             logger.error("Failed to save students: " + e.getMessage());
         }
