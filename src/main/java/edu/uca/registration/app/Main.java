@@ -157,25 +157,7 @@ public class Main {
         try {
             System.out.println("Course Code: ");
             String courseCode = sc.nextLine().trim();
-            Course c = courseRepo.get(courseCode);
-            if (c == null) {
-                System.out.println("No such course"); return; }
-            if (c.getRoster().size() <= 0) {
-                System.out.println("Course Roster is Empty"); return; }
-            else {
-                System.out.println("Course Roster: ");
-                for (int i = 0; i < c.getRoster().size(); i++)
-                    System.out.println(c.getRoster().get(i));
-
-                if (c.getWaitlist().size() <= 0)
-                    System.out.println("Course Waitlist: Empty\n");
-                else {
-                    System.out.println("Course Waitlist: \n");
-                    for (int i = 0; i < c.getWaitlist().size(); i++)
-                        System.out.println(c.getWaitlist().get(i));
-                }
-            }
-
+            registrationService.courseRoster(courseCode);
             System.out.print("Student Banner ID: ");
             String studentId = sc.nextLine().trim();
 

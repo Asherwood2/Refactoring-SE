@@ -66,6 +66,28 @@ public class RegistrationService {
         }
     }
 
+    public String courseRoster(String courseCode) {
+        Course c = courseRepo.get(courseCode);
+        if (c == null)
+            return("No such course");
+        if (c.getRoster().size() <= 0)
+            return("Course Roster is Empty");
+        else {
+            System.out.println("Course Roster: ");
+            for (int i = 0; i < c.getRoster().size(); i++)
+                System.out.println(c.getRoster().get(i));
+
+            if (c.getWaitlist().size() <= 0)
+                System.out.println("Course Waitlist: Empty");
+            else {
+                System.out.println("Course Waitlist: ");
+                for (int i = 0; i < c.getWaitlist().size(); i++)
+                    System.out.println(c.getWaitlist().get(i));
+            }
+        }
+        return ("\n");
+    }
+
     public String drop(String studentId, String courseCode) {
         Course c = courseRepo.get(courseCode);
         if (c == null) {
