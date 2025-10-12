@@ -1,5 +1,5 @@
-<<<<<<< HEAD
-This README provides:
+<<<<<<< HEAD  
+# This README provides:
 - Clear project overview
 - Complete feature list
 - Build and run instructions
