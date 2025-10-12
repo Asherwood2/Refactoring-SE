@@ -2,18 +2,38 @@ package edu.uca.registration.app;
 
 import edu.uca.registration.model.Student;
 import edu.uca.registration.model.Course;
+import edu.uca.registration.repo.*;
+import edu.uca.registration.util.AppLogger;
 
 import java.util.*;
 
-
+// CLI application for course registration with file persistence
 public class Main {
-    // Temporary in-memory storage
-    private static Map<String, Student> students = new HashMap<>();
-    private static Map<String, Course> courses = new HashMap<>();
+    private static StudentRepository studentRepo;
+    private static CourseRepository courseRepo;
 
     public static void main(String[] args) {
+        // Initialize logger and repositories
+        AppLogger logger = new AppLogger(false);
+
+        // External file paths
+        String studentsFile = System.getProperty("students.file", "students.csv");
+        String coursesFile = System.getProperty("courses.file", "courses.csv");
+
+        studentRepo = new CsvStudentRepository(studentsFile, logger);
+        courseRepo = new CsvCourseRepository(coursesFile, logger);
+
+        // Load existing data
+        studentRepo.load();
+        courseRepo.load();
+
         System.out.println("=== UCA Course Registration ===\n");
         menuLoop();
+
+        // Save all data before exit
+        studentRepo.saveAll();
+        courseRepo.saveAll();
+
         System.out.println("Goodbye!");
     }
 
@@ -43,7 +63,7 @@ public class Main {
         }
     }
 
-    // Student info prompted and added to map
+    // Student info prompted and added to repo
     private static void addStudent(Scanner sc) {
         System.out.print("Banner ID: ");
         String id = sc.nextLine().trim();
@@ -53,11 +73,11 @@ public class Main {
         String email = sc.nextLine().trim();
 
         Student student = new Student(id, name, email);
-        students.put(id, student);
+        studentRepo.add(student);
         System.out.println("Student added!");
     }
 
-    // Course info prompted and added to map
+    // Course info prompted and added to repo
     private static void addCourse(Scanner sc) {
         System.out.print("Course Code: ");
         String code = sc.nextLine().trim();
@@ -67,22 +87,22 @@ public class Main {
         int capacity = Integer.parseInt(sc.nextLine().trim());
 
         Course course = new Course(code, title, capacity);
-        courses.put(code, course);
+        courseRepo.add(course);
         System.out.println("Course added!");
     }
 
-    // Display all students
+    // Display all students from repo
     private static void listStudents() {
         System.out.println("Students:");
-        for (Student s : students.values()) {
+        for (Student s : studentRepo.getAll().values()) {
             System.out.println(" - " + s);
         }
     }
 
-    // Display all courses
+    // Display all courses from repo
     private static void listCourses() {
         System.out.println("Courses:");
-        for (Course c : courses.values()) {
+        for (Course c : courseRepo.getAll().values()) {
             System.out.println(" - " + c.getCode() + " " + c.getTitle() +
                     " (capacity: " + c.getCapacity() + ")");
         }
