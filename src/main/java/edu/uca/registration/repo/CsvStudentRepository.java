@@ -16,7 +16,7 @@ public class CsvStudentRepository implements StudentRepository{
         this.students = new HashMap<>();
         this.logger = logger;
     }
-    
+    //Overrides give access to StudentRepository
     @Override
     public void load(){
         File f = new File(filePath);
@@ -32,7 +32,7 @@ public class CsvStudentRepository implements StudentRepository{
                 try{
                     String[] p = line.split(",", -1);
                     if (p.length >= 3){
-                        students.put(p[0], new Student(p[0],p[1],p[2]));
+                        students.put(p[0], new Student(p[0], p[1], p[2]));
                     } else{
                         logger.warn("Skipping invalid student line" + lineNum);
                     }
@@ -46,5 +46,30 @@ public class CsvStudentRepository implements StudentRepository{
         }
     }
     
+    @Override
+    public void saveAll(){
+        try (PrintWriter pw = new PrintWriter(new FileWriter(filePath))){
+            for (Student s : students.values()){
+                pw.println(s.getId() + "," + s.getName() + "," + s.getEmail());
+                logger.info("Saved " + students.size() + " students");
+            }
+        } catch (IOException e){
+            logger.error("Failed to save students: " + e.getMessage());
+        }
+    }
+    
+    @Override
+    public Map<String, Student> getAll(){
+        return students;
+    }
+    
+    @Override
+    public void add(Student student){
+        students.put(student.getId(), student);
+    }
+    
+    @Override
+    public boolean exists(String id){
+        return students.containsKey(id);
+    }
 }
-
