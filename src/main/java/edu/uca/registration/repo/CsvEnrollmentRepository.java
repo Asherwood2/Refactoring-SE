@@ -52,4 +52,16 @@ public class CsvEnrollmentRepository implements EnrollmentRepository{
         }
     }
     
+    @Override
+    public void saveAll(Map<String, Course> courses){
+        try(PrintWriter pw = new PrintWriter(new FileWriter(filePath))){
+            for (Course c : courses.values()){
+                for (String sid : c.getRoster()) pw.println(c.getCode() + "|" + sid + "|ENROLLED");
+                for (String sid : c.getWaitlist()) pw.println(c.getCode() + "|" + sid + "|WAITLIST");
+            }
+            logger.info("Saved enrollments");
+        } catch (IOException e){
+            logger.error("Failed to save enrollments: " + e.getMessage());
+        }
+    }
 }
