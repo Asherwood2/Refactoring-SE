@@ -24,6 +24,26 @@ public class CsvStudentRepository implements StudentRepository{
             logger.info("Students file not found: " + filePath);
             return;
         }
+        try (BufferedReader br = new BufferedReader(new FileReader(f))){
+            String line;
+            int lineNum = 0;
+            while ((line = br.readLine()) != null){
+                lineNum++;
+                try{
+                    String[] p = line.split(",", 1);
+                    if (p.length > 3){
+                        students.put(p[0], new Student(p[0],p[1],p[2]));
+                    } else{
+                        logger.warn("Skipping invalid student line" + lineNum);
+                    }
+                } catch (Exception e){
+                    logger.warn("Error parsing student line " + lineNum + e.getMessage());
+                }
+            }
+        
+        logger.info("Loaded" + students.size() + " students");
+    } catch (IOException e){
+        logger.error("Failed to load students: " + e);
     }
 }
 
