@@ -30,20 +30,21 @@ public class CsvStudentRepository implements StudentRepository{
             while ((line = br.readLine()) != null){
                 lineNum++;
                 try{
-                    String[] p = line.split(",", 1);
-                    if (p.length > 3){
+                    String[] p = line.split(",", -1);
+                    if (p.length >= 3){
                         students.put(p[0], new Student(p[0],p[1],p[2]));
                     } else{
                         logger.warn("Skipping invalid student line" + lineNum);
                     }
                 } catch (Exception e){
-                    logger.warn("Error parsing student line " + lineNum + e.getMessage());
+                    logger.warn("Error parsing student line " + lineNum + ": " + e.getMessage());
                 }
             }
-        
-        logger.info("Loaded" + students.size() + " students");
-    } catch (IOException e){
-        logger.error("Failed to load students: " + e);
+            logger.info("Loaded" + students.size() + " students");
+        } catch (IOException e){
+            logger.error("Failed to load students: " + e.getMessage());
+        }
     }
+    
 }
 
