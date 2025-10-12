@@ -41,25 +41,25 @@ The system uses three CSV files for persistence:
 ## Usage Examples
 
 ### Adding a Student
-Menu: Choose 1
-Banner ID: B001
-Name: John Smith
-Email: john.smith@uca.edu
+Menu: Choose 1  
+Banner ID: B001  
+Name: John Smith  
+Email: john.smith@uca.edu  
 
 ### Adding a Course
-Menu: Choose 2
-Course Code: 1000
-Title: Software Engineering
-Capacity: 30
+Menu: Choose 2  
+Course Code: 1000  
+Title: Software Engineering  
+Capacity: 30  
 
 ### Enrolling a Student
-Menu: Choose 5
-Student Banner ID: B001
+Menu: Choose 5  
+Student Banner ID: B001  
 Course Code: 1000
 
 ### Searching
-Menu: Choose 7 (Search students)
-Search keyword: Smith
+Menu: Choose 7 (Search students)  
+Search keyword: Smith  
 
 Menu: Choose 8 (Search courses)  
 Search keyword: Engineering
