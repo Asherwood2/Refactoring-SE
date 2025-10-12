@@ -69,9 +69,9 @@ public class RegistrationService {
     public String courseRoster(String courseCode) {
         Course c = courseRepo.get(courseCode);
         if (c == null)
-            return("No such course");
+            throw new EnrollmentException("No such course");
         if (c.getRoster().size() <= 0)
-            return("Course Roster is Empty");
+            throw new EnrollmentException("Course Roster is Empty");
         else {
             System.out.println("Course Roster: ");
             for (int i = 0; i < c.getRoster().size(); i++)
