@@ -103,29 +103,46 @@ public class Main {
     }
 
     private static void dropUI(Scanner sc) {
-        print("Student ID: ");
-        String sid = sc.nextLine().trim();
         print("Course Code: ");
         String cc = sc.nextLine().trim();
         Course c = courses.get(cc);
         if (c == null) { println("No such course"); return; }
+        print("Course Roster: \n");
+        if (c.getRoster().size() <= 0)
+            println("Empty");
+        else {
+            for (int i = 0; i < c.getRoster().size(); i++)
+                println(c.getRoster().get(i));
 
-        if (c.roster.remove(sid)) {
-            audit("DROP " + sid + " from " + cc);
-            // Promote first waitlisted (FIFO)
-            if (!c.waitlist.isEmpty()) {
-                String promote = c.waitlist.remove(0);
-                c.roster.add(promote);
-                audit("PROMOTE " + promote + "->" + cc);
-                println("Promoted " + promote + " from waitlist.");
-            } else {
-                println("Dropped.");
+            if (c.getWaitlist().size() <= 0)
+                println("Empty");
+            else {
+                print("Course Waitlist: \n");
+                for (int i = 0; i < c.getWaitlist().size(); i++)
+                    println(c.getWaitlist().get(i));
             }
-        } else if (c.waitlist.remove(sid)) {
-            audit("WAITLIST_REMOVE " + sid + " " + cc);
-            println("Removed from waitlist.");
-        } else {
-            println("Not enrolled or waitlisted.");
+
+
+            print("Student ID: ");
+            String sid = sc.nextLine().trim();
+
+            if (c.getRoster().remove(sid)) {
+                audit("DROP " + sid + " from " + cc);
+                // Promote first waitlisted (FIFO)
+                if (!c.getWaitlist().isEmpty()) {
+                    String promote = c.getWaitlist().remove(0);
+                    c.getRoster().add(promote);
+                    audit("PROMOTE " + promote + "->" + cc);
+                    println("Promoted " + promote + " from waitlist.");
+                } else {
+                    println("Dropped.");
+                }
+            } else if (c.getWaitlist().remove(sid)) {
+                audit("WAITLIST_REMOVE " + sid + " " + cc);
+                println("Removed from waitlist.");
+            } else {
+                println("Not enrolled or waitlisted.");
+            }
         }
     }
 
