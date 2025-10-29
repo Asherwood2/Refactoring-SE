@@ -8,7 +8,7 @@ public class ValidatorTest {
     
     @Test
     public void testValidBannerId() {
-        // Should not throw exception
+        // IDs should not throw excep.
         Validator.validateBannerId("B001");
         Validator.validateBannerId("B123");
     }
