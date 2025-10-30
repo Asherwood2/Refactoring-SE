@@ -38,15 +38,39 @@ public class RegistrationServiceTest {
         assertTrue(studentRepo.exists("B001"));
     }
     
-    @Test(expected = ValidationException.class)
-    public void testAddStudent_Duplicate() {
-        service.addStudent("B001", "Alice", "alice@uca.edu");
-        service.addStudent("B001", "Bob", "bob@uca.edu");
+    @Test
+    public void test_Student_With_Invalid_Names() {
+        int successCount = 0;
+        int errorCount = 0;
+    
+        for (int i = 1; i <= 500; i++) {
+            String id = String.format("B%03d", i);
+            try {
+                if (i % 5 == 0) {
+                    service.addStudent(id, "", "s" + i + "@uca.edu"); // Invalid name
+                } else {
+                    service.addStudent(id, "Student" + i, "s" + i + "@uca.edu");
+                    successCount++;
+                }
+            } catch (Exception e) {
+                // Expected for invalid data
+                errorCount++;
+            }
+        }
+    
+        assertEquals(successCount, studentRepo.getAll().size());
+        assertEquals(100, errorCount); // 100 empty names
     }
     
     @Test(expected = ValidationException.class)
     public void testAddStudent_InvalidBannerId() {
         service.addStudent("invalid", "Alice", "alice@uca.edu");
+    }
+    
+    @Test(expected = ValidationException.class)
+    public void testAddStudent_Duplicate() {
+        service.addStudent("B001", "Alice", "alice@uca.edu");
+        service.addStudent("B001", "Bob", "bob@uca.edu");
     }
     
     // adding course
@@ -71,10 +95,20 @@ public class RegistrationServiceTest {
     }
     
     @Test
+    public void testListStudents_Empty() {
+        assertEquals(0, studentRepo.getAll().size());
+    }
+    
+    @Test
     public void testListCourses() {
         service.addCourse("CSCI4490", "SE", 30);
         service.addCourse("MATH1496", "Calculus", 50);
         assertEquals(2, courseRepo.getAll().size());
+    }
+    
+    @Test
+    public void testListCourses_Empty() {
+        assertEquals(0, courseRepo.getAll().size());
     }
     
     // enrolling
@@ -132,6 +166,13 @@ public class RegistrationServiceTest {
         assertTrue(result.contains("Promoted B002"));
     }
     
+    @Test(expected = EnrollmentException.class)
+    public void testDrop_NotEnrolled() {
+        service.addStudent("B001", "Alice", "alice@uca.edu");
+        service.addCourse("CSCI4490", "SE", 30);
+        service.drop("B001", "CSCI4490");
+    }
+    
     // searching students
     @Test
     public void testSearchStudents() {
@@ -142,6 +183,14 @@ public class RegistrationServiceTest {
         assertEquals(2, service.searchStudents("").size());
     }
     
+    @Test
+    public void testSearchStudents_NoResults() {
+        service.addStudent("B001", "Alice Smith", "alice@uca.edu");
+        service.addStudent("B002", "Bob Jones", "bob@uca.edu");
+    
+        assertEquals(0, service.searchStudents("Nonexistent").size());
+    }
+    
     //  searching courses
     @Test
     public void testSearchCourses() {
@@ -150,5 +199,13 @@ public class RegistrationServiceTest {
         
         assertEquals(1, service.searchCourses("Software").size());
         assertEquals(2, service.searchCourses("").size());
+    }
+    
+    @Test
+    public void testSearchCourses_NoResults() {
+        service.addCourse("CSCI4490", "Software Engineering", 30);
+        service.addCourse("MATH1496", "Calculus", 50);
+    
+        assertEquals(0, service.searchCourses("Nonexistent").size());
     }
 }
