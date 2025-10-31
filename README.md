@@ -87,7 +87,7 @@ Based on performance testing:
 
 Can handle 500+ student records efficiently
 
-Supports rapid enrollment operations (100+ enrollments in <2 seconds)
+Supports rapid enrollment operations (100+ enrollments in <10 milliseconds)
 
 Efficient search across large datasets
 
