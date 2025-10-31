@@ -23,6 +23,7 @@ A Java command-line application for managing student course registrations with f
 - **Data Persistence**: All data saved to CSV files
 - **Input Validation**: Comprehensive validation for student IDs, emails, and course data
 - **Search Functionality**: Search students and courses by various criteria
+- **Comprehensive Testing**: Unit tests, integration tests, and performance tests
 
 ## Data Files
 
@@ -101,6 +102,31 @@ EnrollmentException: Enrollment-related errors (not found, already enrolled, etc
 File I/O Errors: Graceful handling of missing/corrupted data files
 
 All errors are displayed to user with descriptive messages
+
+## Testing Framework
+The system includes a comprehensive test suite covering functionality, performance, and edge cases:
+
+## Test Classes
+RegistrationServiceTest: Unit tests for core business logic including student/course management, enrollment, drops, and search functionality
+
+ValidatorTest: Tests for input validation rules (Banner ID format, email validation, capacity limits)
+
+RepositoryTest: Integration tests for data persistence, file I/O, and error handling
+
+PerformanceTest: Performance benchmarks for large-scale operations and stress testing
+
+## Test Coverage
+The test suite validates:
+
+Business Logic: Enrollment workflows, waitlist management, duplicate prevention
+
+Data Persistence: Save/load operations for students, courses, and enrollments
+
+Input Validation: Proper handling of invalid data and edge cases
+
+Performance: System behavior under load (500+ students, concurrent operations)
+
+Error Handling: Graceful recovery from corrupted data and missing files
 
 
 ## Run
