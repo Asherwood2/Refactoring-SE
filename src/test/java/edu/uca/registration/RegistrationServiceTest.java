@@ -1,6 +1,7 @@
 package edu.uca.registration;
 
 import edu.uca.registration.exception.*;
+import edu.uca.registration.model.Course;
 import edu.uca.registration.repo.*;
 import edu.uca.registration.service.RegistrationService;
 import edu.uca.registration.util.AppLogger;
@@ -207,5 +208,32 @@ public class RegistrationServiceTest {
         service.addCourse("MATH1496", "Calculus", 50);
     
         assertEquals(0, service.searchCourses("Nonexistent").size());
+    }
+    
+    @Test
+    public void CompleteSystemTest() {
+        // Add students
+        service.addStudent("B001", "Alice", "alice@uca.edu");
+        service.addStudent("B002", "Bob", "bob@uca.edu");
+    
+        // Add course with capacity 1
+        service.addCourse("CSCI4490", "SE", 1);
+    
+        // Enroll first student
+        service.enroll("B001", "CSCI4490");
+    
+        // Enroll second student (goes to waitlist)
+        String result = service.enroll("B002", "CSCI4490");
+        assertTrue(result.contains("WAITLIST"));
+    
+        // Drop first student (promotes second from waitlist)
+        result = service.drop("B001", "CSCI4490");
+        assertTrue(result.contains("Promoted B002"));
+    
+        // List students and verify
+        Course course = courseRepo.get("CSCI4490");
+        assertEquals(1, course.getRoster().size());
+        assertTrue(course.getRoster().contains("B002"));
+        assertEquals(0, course.getWaitlist().size());
     }
 }
